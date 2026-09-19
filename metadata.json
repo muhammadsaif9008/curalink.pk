@@ -1,0 +1,12 @@
+{
+  "name": "Remix Remix Remix Remix Remix Remix Remix Remix Remix Remix CuraLink",
+  "description": "Healthcare platform for Pakistan providing AI-guided triage, video consultations, home doctor visits, and continuous verified medical records.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

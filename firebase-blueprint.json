@@ -1,0 +1,365 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role-based access information",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address",
+          "maxLength": 120
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Full name of the user",
+          "maxLength": 100
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "Avatar URL",
+          "maxLength": 500
+        },
+        "role": {
+          "type": "string",
+          "description": "Role in CuraLink",
+          "enum": ["patient", "doctor", "admin"]
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Contact number",
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Update timestamp"
+        }
+      },
+      "required": ["uid", "email", "displayName", "role"]
+    },
+    "Consultation": {
+      "title": "Consultation",
+      "description": "Clinical consultation record synthesized by CuraLink AI Scribe",
+      "type": "object",
+      "properties": {
+        "patientId": {
+          "type": "string",
+          "description": "Patient user UID",
+          "maxLength": 128
+        },
+        "patientName": {
+          "type": "string",
+          "description": "Patient display name",
+          "maxLength": 100
+        },
+        "doctorId": {
+          "type": "string",
+          "description": "Doctor user UID",
+          "maxLength": 128
+        },
+        "doctorName": {
+          "type": "string",
+          "description": "Doctor display name",
+          "maxLength": 100
+        },
+        "doctorPmc": {
+          "type": "string",
+          "description": "Doctor PMC license identifier",
+          "maxLength": 50
+        },
+        "date": {
+          "type": "string",
+          "description": "Consultation date string",
+          "maxLength": 40
+        },
+        "type": {
+          "type": "string",
+          "description": "Consultation modality",
+          "enum": ["in-person", "video", "scribe"]
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of consultation encounter",
+          "enum": ["scheduled", "in-progress", "completed"]
+        },
+        "transcript": {
+          "type": "string",
+          "description": "Dual-voice recorded conversation dialogue",
+          "maxLength": 20000
+        },
+        "diagnosis": {
+          "type": "string",
+          "description": "ICD-10 clinical diagnosis",
+          "maxLength": 300
+        },
+        "chiefComplaint": {
+          "type": "string",
+          "description": "Primary patient symptom or complaint",
+          "maxLength": 500
+        },
+        "historyOfIllness": {
+          "type": "string",
+          "description": "Clinical history of current illness",
+          "maxLength": 3000
+        },
+        "advice": {
+          "type": "string",
+          "description": "Dietary and lifestyle instructions",
+          "maxLength": 2000
+        },
+        "redFlags": {
+          "type": "string",
+          "description": "Emergency warning criteria",
+          "maxLength": 1000
+        },
+        "followUp": {
+          "type": "string",
+          "description": "Follow-up schedule and SOS instructions",
+          "maxLength": 300
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["patientId", "doctorId", "status", "diagnosis"]
+    },
+    "Appointment": {
+      "title": "Appointment",
+      "description": "Telehealth or clinic appointment booking",
+      "type": "object",
+      "properties": {
+        "patientId": {
+          "type": "string",
+          "description": "Patient UID",
+          "maxLength": 128
+        },
+        "patientName": {
+          "type": "string",
+          "description": "Patient name",
+          "maxLength": 100
+        },
+        "doctorId": {
+          "type": "string",
+          "description": "Doctor UID",
+          "maxLength": 128
+        },
+        "doctorName": {
+          "type": "string",
+          "description": "Doctor name",
+          "maxLength": 100
+        },
+        "doctorSpecialty": {
+          "type": "string",
+          "description": "Clinical specialty",
+          "maxLength": 100
+        },
+        "date": {
+          "type": "string",
+          "description": "Appointment date",
+          "maxLength": 30
+        },
+        "time": {
+          "type": "string",
+          "description": "Appointment time slot",
+          "maxLength": 30
+        },
+        "type": {
+          "type": "string",
+          "description": "Appointment modality",
+          "enum": ["video", "in-person", "home-visit"]
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of appointment",
+          "enum": ["confirmed", "completed", "cancelled"]
+        },
+        "fee": {
+          "type": "number",
+          "description": "Consultation fee in PKR"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Booking timestamp"
+        }
+      },
+      "required": ["patientId", "doctorId", "date", "status"]
+    },
+    "Prescription": {
+      "title": "Prescription",
+      "description": "Digital verified medical prescription with QR verification",
+      "type": "object",
+      "properties": {
+        "consultationId": {
+          "type": "string",
+          "description": "Associated consultation ID",
+          "maxLength": 128
+        },
+        "patientId": {
+          "type": "string",
+          "description": "Patient UID",
+          "maxLength": 128
+        },
+        "patientName": {
+          "type": "string",
+          "description": "Patient display name",
+          "maxLength": 100
+        },
+        "doctorId": {
+          "type": "string",
+          "description": "Doctor UID",
+          "maxLength": 128
+        },
+        "doctorName": {
+          "type": "string",
+          "description": "Doctor display name",
+          "maxLength": 100
+        },
+        "doctorPmc": {
+          "type": "string",
+          "description": "Doctor PMC number",
+          "maxLength": 50
+        },
+        "issueDate": {
+          "type": "string",
+          "description": "Issue date",
+          "maxLength": 40
+        },
+        "status": {
+          "type": "string",
+          "description": "Prescription status",
+          "enum": ["active", "dispensed", "expired"]
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["consultationId", "patientId", "doctorId", "status"]
+    },
+    "MedicalNote": {
+      "title": "MedicalNote",
+      "description": "Clinical progress notes and patient health observations",
+      "type": "object",
+      "properties": {
+        "patientId": {
+          "type": "string",
+          "description": "Patient user UID",
+          "maxLength": 128
+        },
+        "patientName": {
+          "type": "string",
+          "description": "Patient display name",
+          "maxLength": 100
+        },
+        "authorId": {
+          "type": "string",
+          "description": "Author UID (doctor or patient)",
+          "maxLength": 128
+        },
+        "authorName": {
+          "type": "string",
+          "description": "Author display name",
+          "maxLength": 100
+        },
+        "authorRole": {
+          "type": "string",
+          "description": "Author user role",
+          "enum": ["doctor", "patient"]
+        },
+        "authorPmc": {
+          "type": "string",
+          "description": "Doctor PMC license if doctor",
+          "maxLength": 50
+        },
+        "title": {
+          "type": "string",
+          "description": "Subject or title of medical note",
+          "maxLength": 200
+        },
+        "category": {
+          "type": "string",
+          "description": "Medical note category",
+          "enum": ["clinical_observation", "follow_up", "symptom_journal", "medication", "lifestyle_diet", "allergy_warning", "medical_leave", "general"]
+        },
+        "patientCnic": {
+          "type": "string",
+          "description": "Patient 13-digit verified CNIC",
+          "maxLength": 30
+        },
+        "leaveDetails": {
+          "type": "object",
+          "description": "Details of medical leave certificate if category is medical_leave"
+        },
+        "content": {
+          "type": "string",
+          "description": "Detailed clinical narrative or observation text",
+          "maxLength": 10000
+        },
+        "priority": {
+          "type": "string",
+          "description": "Clinical priority level",
+          "enum": ["routine", "important", "urgent"]
+        },
+        "isPinned": {
+          "type": "boolean",
+          "description": "Whether pinned to top"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Update timestamp"
+        }
+      },
+      "required": ["patientId", "authorId", "title", "category", "content", "priority"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "User profile with role and identity details"
+    },
+    "/consultations/{consultationId}": {
+      "schema": {
+        "$ref": "#/entities/Consultation"
+      },
+      "description": "Clinical consultation encounters and AI generated reports"
+    },
+    "/appointments/{appointmentId}": {
+      "schema": {
+        "$ref": "#/entities/Appointment"
+      },
+      "description": "Scheduled telemedicine or in-person patient appointments"
+    },
+    "/prescriptions/{prescriptionId}": {
+      "schema": {
+        "$ref": "#/entities/Prescription"
+      },
+      "description": "Issued digital prescriptions linked to clinical consultations"
+    },
+    "/medical_notes/{noteId}": {
+      "schema": {
+        "$ref": "#/entities/MedicalNote"
+      },
+      "description": "Clinical progress notes and patient health observations"
+    }
+  }
+}
